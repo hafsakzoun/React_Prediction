@@ -427,3 +427,5 @@ Facebook: <https://www.facebook.com/simmmple.web>
 Dribbble: <https://dribbble.com/simmmple>
 
 Instagram: <https://www.instagram.com/simmmple.web>
+#   R e a c t _ P r e d i c t i o n  
+ 
