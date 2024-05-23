@@ -33,7 +33,7 @@ const SatisfactionRate = () => {
                     Unsubscribing Rate
                 </VuiTypography>
                 <VuiTypography variant='button' color='text' fontWeight='regular' mb='20px'>
-                    High Unsubscription Rate (Prediction 1)
+                    Unsubscription Rate (Prediction 1)
                 </VuiTypography>
                 <VuiBox sx={{ alignSelf: 'center', justifySelf: 'center', zIndex: '-1' }}>
                     <VuiBox sx={{ position: 'relative', display: 'inline-flex' }}>
