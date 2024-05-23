@@ -1,5 +1,5 @@
-
-
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Icon from "@mui/material/Icon";
@@ -47,8 +47,28 @@ import { barChartOptionsDashboard } from "layouts/dashboard/data/barChartOptions
 function Dashboard() {
   const { gradients } = colors;
   const { cardContent } = gradients;
+  const [counts, setCounts] = useState({ prediction_0: 0, prediction_1: 0, total_clients: 0 });
 
-  return (
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const predictionsResponse = await axios.get('http://localhost:5000/count_predictions');
+        const totalClientsResponse = await axios.get('http://localhost:5000/total_clients');
+
+        setCounts({
+          prediction_0: predictionsResponse.data.prediction_0,
+          prediction_1: predictionsResponse.data.prediction_1,
+          total_clients: totalClientsResponse.data.total_clients,
+        });
+      } catch (error) {
+        console.error('Error fetching data', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+return (
     <DashboardLayout>
       <DashboardNavbar />
       <VuiBox py={3}>
@@ -56,32 +76,29 @@ function Dashboard() {
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} xl={3}>
               <MiniStatisticsCard
-                title={{ text: "today's money", fontWeight: "regular" }}
-                count="$53,000"
-                percentage={{ color: "success", text: "+55%" }}
+                title={{ text: "Total Customers", fontWeight: "regular" }}
+                count={counts.total_clients}
                 icon={{ color: "info", component: <IoWallet size="22px" color="white" /> }}
               />
             </Grid>
             <Grid item xs={12} md={6} xl={3}>
               <MiniStatisticsCard
-                title={{ text: "today's users" }}
-                count="2,300"
-                percentage={{ color: "success", text: "+3%" }}
+                title={{ text: "Unsubscribing Number" }}
+                count={counts.prediction_1}
                 icon={{ color: "info", component: <IoGlobe size="22px" color="white" /> }}
               />
             </Grid>
             <Grid item xs={12} md={6} xl={3}>
               <MiniStatisticsCard
-                title={{ text: "new clients" }}
-                count="+3,462"
-                percentage={{ color: "error", text: "-2%" }}
+                title={{ text: "Subscribing Number" }}
+                count={counts.prediction_0}
                 icon={{ color: "info", component: <IoDocumentText size="22px" color="white" /> }}
               />
             </Grid>
             <Grid item xs={12} md={6} xl={3}>
               <MiniStatisticsCard
-                title={{ text: "total sales" }}
-                count="$103,430"
+                title={{ text: "New Customers" }}
+                count="100"
                 percentage={{ color: "success", text: "+5%" }}
                 icon={{ color: "info", component: <FaShoppingCart size="20px" color="white" /> }}
               />
@@ -107,15 +124,9 @@ function Dashboard() {
               <Card>
                 <VuiBox sx={{ height: "100%" }}>
                   <VuiTypography variant="lg" color="white" fontWeight="bold" mb="5px">
-                    Sales Overview
+                    Prediction Chart
                   </VuiTypography>
                   <VuiBox display="flex" alignItems="center" mb="40px">
-                    <VuiTypography variant="button" color="success" fontWeight="bold">
-                      +5% more{" "}
-                      <VuiTypography variant="button" color="text" fontWeight="regular">
-                        in 2021
-                      </VuiTypography>
-                    </VuiTypography>
                   </VuiBox>
                   <VuiBox sx={{ height: "310px" }}>
                     <LineChart
