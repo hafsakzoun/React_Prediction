@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 // @mui material components
 import Grid from "@mui/material/Grid";
-import Icon from "@mui/material/Icon";
 import { Card, LinearProgress, Stack } from "@mui/material";
 
 // Vision UI Dashboard React components
 import VuiBox from "components/VuiBox";
 import VuiTypography from "components/VuiTypography";
-import VuiProgress from "components/VuiProgress";
 
 // Vision UI Dashboard React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -18,7 +16,6 @@ import MiniStatisticsCard from "examples/Cards/StatisticsCards/MiniStatisticsCar
 import linearGradient from "assets/theme/functions/linearGradient";
 
 // Vision UI Dashboard React base styles
-import typography from "assets/theme/base/typography";
 import colors from "assets/theme/base/colors";
 
 // Dashboard layout components
@@ -29,9 +26,7 @@ import SatisfactionRate from "layouts/dashboard/components/SatisfactionRate";
 import ReferralTracking from "layouts/dashboard/components/ReferralTracking";
 
 // React icons
-import { IoIosRocket } from "react-icons/io";
 import { IoGlobe } from "react-icons/io5";
-import { IoBuild } from "react-icons/io5";
 import { IoWallet } from "react-icons/io5";
 import { IoDocumentText } from "react-icons/io5";
 import { FaShoppingCart } from "react-icons/fa";
@@ -124,7 +119,7 @@ return (
               <Card>
                 <VuiBox sx={{ height: "100%" }}>
                   <VuiTypography variant="lg" color="white" fontWeight="bold" mb="5px">
-                    Prediction Chart
+                   Churn Prediction Probability Over Time
                   </VuiTypography>
                   <VuiBox display="flex" alignItems="center" mb="40px">
                   </VuiBox>
@@ -142,7 +137,7 @@ return (
                 <VuiBox>
                   <VuiBox
                     mb="24px"
-                    height="220px"
+                    height="350px"
                     sx={{
                       background: linearGradient(
                         cardContent.main,
@@ -152,120 +147,17 @@ return (
                       borderRadius: "20px",
                     }}
                   >
+                    <VuiBox sx={{ height: "310px" }}>
+                    <VuiTypography variant="lg" color="white" fontWeight="bold" mb="5px">
+                    Churn Prediction Probability
+                  </VuiTypography>
                     <BarChart
                       barChartData={barChartDataDashboard}
                       barChartOptions={barChartOptionsDashboard}
-                    />
+                    />  
+                    </VuiBox>
+                    
                   </VuiBox>
-                  <VuiTypography variant="lg" color="white" fontWeight="bold" mb="5px">
-                    Active Users
-                  </VuiTypography>
-                  <VuiBox display="flex" alignItems="center" mb="40px">
-                    <VuiTypography variant="button" color="success" fontWeight="bold">
-                      (+23){" "}
-                      <VuiTypography variant="button" color="text" fontWeight="regular">
-                        than last week
-                      </VuiTypography>
-                    </VuiTypography>
-                  </VuiBox>
-                  <Grid container spacing="50px">
-                    <Grid item xs={6} md={3} lg={3}>
-                      <Stack
-                        direction="row"
-                        spacing={{ sm: "10px", xl: "4px", xxl: "10px" }}
-                        mb="6px"
-                      >
-                        <VuiBox
-                          bgColor="info"
-                          display="flex"
-                          justifyContent="center"
-                          alignItems="center"
-                          sx={{ borderRadius: "6px", width: "25px", height: "25px" }}
-                        >
-                          <IoWallet color="#fff" size="12px" />
-                        </VuiBox>
-                        <VuiTypography color="text" variant="button" fontWeight="medium">
-                          Users
-                        </VuiTypography>
-                      </Stack>
-                      <VuiTypography color="white" variant="lg" fontWeight="bold" mb="8px">
-                        32,984
-                      </VuiTypography>
-                      <VuiProgress value={60} color="info" sx={{ background: "#2D2E5F" }} />
-                    </Grid>
-                    <Grid item xs={6} md={3} lg={3}>
-                      <Stack
-                        direction="row"
-                        spacing={{ sm: "10px", xl: "4px", xxl: "10px" }}
-                        mb="6px"
-                      >
-                        <VuiBox
-                          bgColor="info"
-                          display="flex"
-                          justifyContent="center"
-                          alignItems="center"
-                          sx={{ borderRadius: "6px", width: "25px", height: "25px" }}
-                        >
-                          <IoIosRocket color="#fff" size="12px" />
-                        </VuiBox>
-                        <VuiTypography color="text" variant="button" fontWeight="medium">
-                          Clicks
-                        </VuiTypography>
-                      </Stack>
-                      <VuiTypography color="white" variant="lg" fontWeight="bold" mb="8px">
-                        2,42M
-                      </VuiTypography>
-                      <VuiProgress value={60} color="info" sx={{ background: "#2D2E5F" }} />
-                    </Grid>
-                    <Grid item xs={6} md={3} lg={3}>
-                      <Stack
-                        direction="row"
-                        spacing={{ sm: "10px", xl: "4px", xxl: "10px" }}
-                        mb="6px"
-                      >
-                        <VuiBox
-                          bgColor="info"
-                          display="flex"
-                          justifyContent="center"
-                          alignItems="center"
-                          sx={{ borderRadius: "6px", width: "25px", height: "25px" }}
-                        >
-                          <FaShoppingCart color="#fff" size="12px" />
-                        </VuiBox>
-                        <VuiTypography color="text" variant="button" fontWeight="medium">
-                          Sales
-                        </VuiTypography>
-                      </Stack>
-                      <VuiTypography color="white" variant="lg" fontWeight="bold" mb="8px">
-                        2,400$
-                      </VuiTypography>
-                      <VuiProgress value={60} color="info" sx={{ background: "#2D2E5F" }} />
-                    </Grid>
-                    <Grid item xs={6} md={3} lg={3}>
-                      <Stack
-                        direction="row"
-                        spacing={{ sm: "10px", xl: "4px", xxl: "10px" }}
-                        mb="6px"
-                      >
-                        <VuiBox
-                          bgColor="info"
-                          display="flex"
-                          justifyContent="center"
-                          alignItems="center"
-                          sx={{ borderRadius: "6px", width: "25px", height: "25px" }}
-                        >
-                          <IoBuild color="#fff" size="12px" />
-                        </VuiBox>
-                        <VuiTypography color="text" variant="button" fontWeight="medium">
-                          Items
-                        </VuiTypography>
-                      </Stack>
-                      <VuiTypography color="white" variant="lg" fontWeight="bold" mb="8px">
-                        320
-                      </VuiTypography>
-                      <VuiProgress value={60} color="info" sx={{ background: "#2D2E5F" }} />
-                    </Grid>
-                  </Grid>
                 </VuiBox>
               </Card>
             </Grid>
