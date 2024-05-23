@@ -28,7 +28,7 @@ function Projects() {
         series: [subscribing_rate, unsubscribing_rate],
         options: {
           labels: ["Subscribing", "Unsubscribing"],
-          colors: ["#1a2560", "#225990"],
+          colors: ["#1a2560", "#65BEDC"],
         },
       });
     } catch (error) {

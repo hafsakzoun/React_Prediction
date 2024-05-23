@@ -11,6 +11,7 @@ import MiniStatisticsCard from "examples/Cards/StatisticsCards/MiniStatisticsCar
 import WelcomeMark from "layouts/dashboard/components/WelcomeMark";
 import Projects from "layouts/dashboard/components/Projects";
 import OrderOverview from "layouts/dashboard/components/OrderOverview";
+import PredictionsByState from "layouts/dashboard/components/PredictionsByState";
 import SatisfactionRate from "layouts/dashboard/components/SatisfactionRate";
 import ReferralTracking from "layouts/dashboard/components/ReferralTracking";
 import LineChart from "examples/Charts/LineCharts/LineChart";
@@ -95,13 +96,13 @@ function Dashboard() {
         </VuiBox>
         <VuiBox mb={3}>
           <Grid container spacing="18px">
-            <Grid item xs={12} lg={12} xl={5}>
+            <Grid item xs={12} lg={12} xl={4}>
               <WelcomeMark />
             </Grid>
             <Grid item xs={12} lg={6} xl={3}>
               <SatisfactionRate />
             </Grid>
-            <Grid item xs={12} lg={6} xl={4}>
+            <Grid item xs={12} lg={6} xl={5}>
               <ReferralTracking />
             </Grid>
           </Grid>
@@ -143,6 +144,9 @@ function Dashboard() {
           </Grid>
           <Grid item xs={12} md={6} lg={6}>
             <OrderOverview />
+          </Grid>
+          <Grid item xs={12} md={6} lg={12}>
+            <PredictionsByState/>
           </Grid>
         </Grid>
       </VuiBox>

@@ -9,11 +9,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Chart from "react-apexcharts";
 
-function OrdersOverview() {
+function PredictionsByState() {
   const [data, setData] = useState({});
 
   useEffect(() => {
-    axios.get("http://localhost:5000/predictions_count_by_state")
+    axios.get("http://localhost:5000/predictions_count_by_state2")
       .then(response => {
         setData(response.data);
       })
@@ -47,7 +47,7 @@ function OrdersOverview() {
     <Card className="h-100">
       <VuiBox mb="16px">
         <VuiTypography variant="lg" fontWeight="bold" mb="5px" color="white">
-          Unsubscribing Prediction by State 
+          Subscribing Prediction by State 
         </VuiTypography>
         <VuiBox mb={2}>
           <Chart
@@ -62,4 +62,4 @@ function OrdersOverview() {
   );
 }
 
-export default OrdersOverview;
+export default PredictionsByState;

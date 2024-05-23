@@ -76,7 +76,7 @@ const SatisfactionRate = () => {
                         mx: 'auto',
                         borderRadius: '20px',
                         background: linearGradient(cardContent.main, cardContent.state, cardContent.deg),
-                        transform: 'translateY(-90%)',
+                        transform: 'translateY(-50%)',
                         zIndex: '1000'
                     }}>
                     <VuiTypography color='text' variant='caption' display='inline-block' fontWeight='regular'>
@@ -88,7 +88,7 @@ const SatisfactionRate = () => {
                         justifyContent='center'
                         alignItems='center'
                         sx={{ minWidth: '80px' }}>
-                        <VuiTypography color='white' variant='h3'>
+                        <VuiTypography color='white' variant='h4'>
                             {unsubscribingRate}%
                         </VuiTypography>
                         <VuiTypography color='text' variant='caption' fontWeight='regular'>

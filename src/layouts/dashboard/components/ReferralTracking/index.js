@@ -3,7 +3,6 @@ import { Card, Stack } from '@mui/material';
 import VuiBox from 'components/VuiBox';
 import VuiTypography from 'components/VuiTypography';
 import colors from 'assets/theme/base/colors';
-import { FaEllipsisH } from 'react-icons/fa';
 import linearGradient from 'assets/theme/functions/linearGradient';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from 'axios';
@@ -92,7 +91,7 @@ function ReferralTracking() {
                                 background: linearGradient(cardContent.main, cardContent.state, cardContent.deg),
                                 borderRadius: '20px',
                                 [breakpoints.up('xl')]: {
-                                    maxWidth: '110px !important'
+                                    maxWidth: '410px !important'
                                 },
                                 [breakpoints.up('xxl')]: {
                                     minWidth: '180px',
@@ -115,7 +114,7 @@ function ReferralTracking() {
                                 background: linearGradient(cardContent.main, cardContent.state, cardContent.deg),
                                 borderRadius: '20px',
                                 [breakpoints.up('xl')]: {
-                                    maxWidth: '110px !important'
+                                    maxWidth: '410px !important'
                                 },
                                 [breakpoints.up('xxl')]: {
                                     minWidth: '180px',
@@ -126,7 +125,7 @@ function ReferralTracking() {
                                 Staying
                             </VuiTypography>
                             <VuiTypography color='white' variant='lg' fontWeight='bold'>
-                                {stayingCustomers}
+                                {stayingCustomers} Customers
                             </VuiTypography>
                         </VuiBox>
                     </Stack>
@@ -136,6 +135,7 @@ function ReferralTracking() {
                             value={subscribingRate}
                             size={window.innerWidth >= 1024 ? 200 : window.innerWidth >= 768 ? 170 : 200}
                             color='success'
+                            
                         />
                         <VuiBox
                             sx={{
