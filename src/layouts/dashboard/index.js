@@ -1,55 +1,42 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-// @mui material components
 import Grid from "@mui/material/Grid";
-import { Card, LinearProgress, Stack } from "@mui/material";
-
-// Vision UI Dashboard React components
+import { Card } from "@mui/material";
 import VuiBox from "components/VuiBox";
 import VuiTypography from "components/VuiTypography";
-
-// Vision UI Dashboard React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import MiniStatisticsCard from "examples/Cards/StatisticsCards/MiniStatisticsCard";
-import linearGradient from "assets/theme/functions/linearGradient";
-
-// Vision UI Dashboard React base styles
 import colors from "assets/theme/base/colors";
-
-// Dashboard layout components
 import WelcomeMark from "layouts/dashboard/components/WelcomeMark";
 import Projects from "layouts/dashboard/components/Projects";
 import OrderOverview from "layouts/dashboard/components/OrderOverview";
 import SatisfactionRate from "layouts/dashboard/components/SatisfactionRate";
 import ReferralTracking from "layouts/dashboard/components/ReferralTracking";
-
-// React icons
+import LineChart from "examples/Charts/LineCharts/LineChart";
 import { IoGlobe } from "react-icons/io5";
 import { IoWallet } from "react-icons/io5";
 import { IoDocumentText } from "react-icons/io5";
 import { FaShoppingCart } from "react-icons/fa";
 
-// Data
-import LineChart from "examples/Charts/LineCharts/LineChart";
-import BarChart from "examples/Charts/BarCharts/BarChart";
-import { lineChartDataDashboard } from "layouts/dashboard/data/lineChartData";
-import { lineChartOptionsDashboard } from "layouts/dashboard/data/lineChartOptions";
-import { barChartDataDashboard } from "layouts/dashboard/data/barChartData";
-import { barChartOptionsDashboard } from "layouts/dashboard/data/barChartOptions";
-
 function Dashboard() {
-  const { gradients } = colors;
-  const { cardContent } = gradients;
   const [counts, setCounts] = useState({ prediction_0: 0, prediction_1: 0, total_clients: 0 });
+  const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const predictionsResponse = await axios.get('http://localhost:5000/count_predictions');
         const totalClientsResponse = await axios.get('http://localhost:5000/total_clients');
-
+        const response = await axios.get("http://localhost:5000/churn_data");
+        // Process the data to transform it into the required format
+        const formattedData = response.data.map((item, index) => ({
+          x: index + 1,
+          y: item.probability[1] // Assuming you want the second probability
+        }));        
+        
+        setChartData(formattedData);
         setCounts({
           prediction_0: predictionsResponse.data.prediction_0,
           prediction_1: predictionsResponse.data.prediction_1,
@@ -63,7 +50,7 @@ function Dashboard() {
     fetchData();
   }, []);
 
-return (
+  return (
     <DashboardLayout>
       <DashboardNavbar />
       <VuiBox py={3}>
@@ -113,56 +100,26 @@ return (
             </Grid>
           </Grid>
         </VuiBox>
-        <VuiBox mb={3}>
+
+        <VuiBox mb={3} >
           <Grid container spacing={3}>
             <Grid item xs={12} lg={6} xl={7}>
               <Card>
                 <VuiBox sx={{ height: "100%" }}>
                   <VuiTypography variant="lg" color="white" fontWeight="bold" mb="5px">
-                   Churn Prediction Probability Over Time
-                  </VuiTypography>
-                  <VuiBox display="flex" alignItems="center" mb="40px">
-                  </VuiBox>
-                  <VuiBox sx={{ height: "310px" }}>
-                    <LineChart
-                      lineChartData={lineChartDataDashboard}
-                      lineChartOptions={lineChartOptionsDashboard}
-                    />
-                  </VuiBox>
-                </VuiBox>
-              </Card>
-            </Grid>
-            <Grid item xs={12} lg={6} xl={5}>
-              <Card>
-                <VuiBox>
-                  <VuiBox
-                    mb="24px"
-                    height="350px"
-                    sx={{
-                      background: linearGradient(
-                        cardContent.main,
-                        cardContent.state,
-                        cardContent.deg
-                      ),
-                      borderRadius: "20px",
-                    }}
-                  >
-                    <VuiBox sx={{ height: "310px" }}>
-                    <VuiTypography variant="lg" color="white" fontWeight="bold" mb="5px">
                     Churn Prediction Probability
                   </VuiTypography>
-                    <BarChart
-                      barChartData={barChartDataDashboard}
-                      barChartOptions={barChartOptionsDashboard}
-                    />  
-                    </VuiBox>
-                    
+                  <VuiBox display="flex" alignItems="center" mb="40px"></VuiBox>
+                  <VuiBox sx={{ height: "310px" }}>
+                    <LineChart lineChartData={chartData} />
                   </VuiBox>
                 </VuiBox>
               </Card>
             </Grid>
           </Grid>
         </VuiBox>
+        
+
         <Grid container spacing={3} direction="row" justifyContent="center" alignItems="stretch">
           <Grid item xs={12} md={6} lg={8}>
             <Projects />
