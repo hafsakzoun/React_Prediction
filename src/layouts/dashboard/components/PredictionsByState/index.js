@@ -26,11 +26,12 @@ function PredictionsByState() {
     options: {
       chart: {
         type: 'bar',
-        height: 350
+        height: 350,
       },
       plotOptions: {
         bar: {
           horizontal: false,
+          color: "#FF5733"
         }
       },
       xaxis: {

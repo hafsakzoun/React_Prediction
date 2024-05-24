@@ -1,51 +1,75 @@
-/*!
-
-=========================================================
-* Vision UI Free React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/vision-ui-free-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-* Licensed under MIT (https://github.com/creativetimofficial/vision-ui-free-react/blob/master LICENSE.md)
-
-* Design and Coded by Simmmple & Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
 // @mui material components
 import Card from "@mui/material/Card";
+import CircularProgress from "@mui/material/CircularProgress";
 
 // Vision UI Dashboard React components
 import VuiBox from "components/VuiBox";
 import VuiTypography from "components/VuiTypography";
-import VuiButton from "components/VuiButton";
 
-// Billing page components
-import Invoice from "layouts/billing/components/Invoice";
+// React ApexCharts
+import React, { useState, useEffect } from "react";
+import ReactApexChart from "react-apexcharts";
+
+// Axios for making HTTP requests
+import axios from "axios";
 
 function Invoices() {
+  // State to store the churn rate data
+  const [churnRates, setChurnRates] = useState(null);
+  // State to handle loading state
+  const [loading, setLoading] = useState(true);
+
+  // Fetch churn rate data from the API
+  useEffect(() => {
+    axios.get("http://localhost:5000/churn_rate_by_international_plan")
+      .then(response => {
+        setChurnRates(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error("Error fetching churn rate data:", error);
+        setLoading(false);
+      });
+  }, []);
+
+  // Chart options
+  const chartOptions = {
+    labels: churnRates ? Object.keys(churnRates) : [],
+    colors: ["#197DBA", "#95DAF1"], // Customize colors as needed
+    legend: {
+      show: true,
+      position: "bottom",
+      horizontalAlign: "center",
+      fontSize: "14px",
+      markers: {
+        width: 12,
+        height: 12,
+      },
+    },
+  };
+
   return (
     <Card id="delete-account" sx={{ height: "100%" }}>
       <VuiBox mb="28px" display="flex" justifyContent="space-between" alignItems="center">
         <VuiTypography variant="h6" fontWeight="medium" color="white">
-          Invoices
+          Churn Rate by International Plan
         </VuiTypography>
-        <VuiButton variant="contained" color="info" size="small">
-          VIEW ALL
-        </VuiButton>
       </VuiBox>
       <VuiBox>
-        <VuiBox component="ul" display="flex" flexDirection="column" p={0} m={0}>
-          <Invoice date="March, 01, 2020" id="#MS-415646" price="$180" />
-          <Invoice date="February, 10, 2021" id="#RV-126749" price="$250" />
-          <Invoice date="April, 05, 2020" id="#QW-103578" price="$120" />
-          <Invoice date="June, 25, 2019" id="#MS-415646" price="$180" />
-          <Invoice date="March, 01, 2019" id="#AR-803481" price="$300" noGutter />
-        </VuiBox>
+        {/* Show loading spinner while data is being fetched */}
+        {loading ? (
+          <CircularProgress color="primary" />
+        ) : (
+          // Render the pie chart if data is available
+          churnRates && (
+            <ReactApexChart options={chartOptions} series={Object.values(churnRates)} type="pie" width="100%" />
+          )
+        )}
+      </VuiBox>
+      <VuiBox mb="30px" mt="30px" display="flex" justifyContent="space-between" alignItems="center">
+        <VuiTypography variant="h6" fontWeight="small" color="grey" p="10px">
+          This pie chart offers a comparative analysis of churn rates among customers with and without international plans. 
+        </VuiTypography>
       </VuiBox>
     </Card>
   );

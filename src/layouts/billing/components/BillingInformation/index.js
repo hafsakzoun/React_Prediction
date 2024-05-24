@@ -1,21 +1,3 @@
-/*!
-
-=========================================================
-* Vision UI Free React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/vision-ui-free-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com/)
-* Licensed under MIT (https://github.com/creativetimofficial/vision-ui-free-react/blob/master LICENSE.md)
-
-* Design and Coded by Simmmple & Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
 // @mui material components
 import Card from "@mui/material/Card";
 
@@ -31,29 +13,35 @@ function BillingInformation() {
     <Card id="delete-account">
       <VuiBox>
         <VuiTypography variant="lg" color="white" fontWeight="bold">
-          Billing Information
+         Data Description
         </VuiTypography>
       </VuiBox>
       <VuiBox>
         <VuiBox component="ul" display="flex" flexDirection="column" p={0} m={0}>
           <Bill
-            name="oliver liam"
-            company="viking burrito"
-            email="oliver@burrito.com"
-            vat="FRB1235476"
+            name="State"
+            company="The state code where the customer resides."
           />
           <Bill
-            name="lucas harper"
-            company="stone tech zone"
-            email="lucas@stone-tech.com"
-            vat="FRB1235476"
+            name="Account Length"
+            company="The number of days the customer has had an account."
           />
           <Bill
-            name="ethan james"
-            company="fiber notion"
-            email="ethan@fiber.com"
-            vat="FRB1235476"
-            noGutter
+            name="Area Code"
+            company="The area code of the customer's phone number."
+          />
+          <Bill
+            name="International Plan"
+            company="Whether the customer has an international calling plan (Yes/No)."
+          />
+          <Bill
+            name="Voice Mail Plan"
+            company="Whether the customer has a voice mail plan (Yes/No)."
+          />
+          <Bill
+            name="Number of Voice Mail Messages"
+            company=" The number of voice mail messages the customer has."
+ 
           />
         </VuiBox>
       </VuiBox>
