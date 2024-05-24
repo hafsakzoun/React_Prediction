@@ -56,7 +56,7 @@ function Transactions() {
   const labelsByAccountLength = churnRatesByAccountLength ? Object.keys(churnRatesByAccountLength) : [];
 
   // Chart options for both charts
-  const chartOptionsByServiceCalls = {
+  const chartOptions = {
     chart: {
       type: "line",
       height: 350,
@@ -64,23 +64,9 @@ function Transactions() {
         show: false
       }
     },
-    colors: ['#5ACDF4'], 
+    colors: ['#5ACDF4'], // Change color to green
     xaxis: {
       categories: labelsByServiceCalls,
-    },
-  };
-
-  const chartOptionsByAccountLength = {
-    chart: {
-      type: "line",
-      height: 350,
-      toolbar: {
-        show: false
-      }
-    },
-    colors: ['#5ACDF4'], 
-    xaxis: {
-      categories: Object.keys(churnRatesByAccountLength),
     },
   };
 
@@ -117,7 +103,7 @@ function Transactions() {
           <CircularProgress color="primary" />
         ) : (
           // Render the chart if data is available
-          <ReactApexChart options={chartOptionsByServiceCalls} series={[{ data: seriesDataByServiceCalls }]} type="line" height={350} />
+          <ReactApexChart options={chartOptions} series={[{ data: seriesDataByServiceCalls }]} type="line" height={350} />
         )}
       </VuiBox>
       <VuiBox
@@ -151,7 +137,7 @@ function Transactions() {
           <CircularProgress color="primary" />
         ) : (
           // Render the chart if data is available
-          <ReactApexChart options={chartOptionsByAccountLength} series={[{ data: seriesDataByAccountLength }]} type="line" height={350} />
+          <ReactApexChart options={chartOptions} series={[{ data: seriesDataByAccountLength }]} type="line" height={350} />
         )}
       </VuiBox>
     </Card>
